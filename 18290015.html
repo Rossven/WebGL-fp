@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+<style>
+    .hder{
+        background-color: rgb(238, 75, 0);
+        color : white;
+        padding: 10px;
+        font-family: Helvetica;
+        text-align: center;
+        
+    }
+
+    h3{
+        background-color: rgb(211, 211, 211);
+        color : rgb(0, 0, 0);
+        text-align: center;
+        border-style: solid;
+        border-radius: 5px;
+        border-color: rgb(2, 2, 2);
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+    body{
+        background-color: rgb(0.1, 0.1, 0.1, 0.8);
+        
+
+
+    }
+
+    #ana{
+        width: 540px;
+        height: 540px;
+        background-color: rgb(228, 88, 7);
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .cnvs{
+        
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 14px;
+        
+        width: 512px; 
+        height: 512px;
+        
+    }
+
+    #ana_div{
+        
+        height: 250px;
+        width: 1000px;
+        margin-right: auto;
+        margin-left: auto;
+        background-color: rgb(228, 88, 7);
+        
+    }
+
+    .div{
+        
+        float: left;
+        height: 200px;
+        width: 200px;
+        margin: 10px;
+        background-color: rgb(102, 95, 95);
+        
+
+    }
+
+    .div  select {
+        background: rgb(211, 211, 211);
+        width: 200px;
+        padding: 5px;
+        font-size: 16px;
+        line-height: 1;
+        border: 3;
+        
+        -webkit-appearance: inherit;
+    }
+
+    #div_ote{
+        height: 200px;
+        width: 300px;
+    }
+
+
+    </style>
+    <title>18290015</title>
+
+    <header>
+        <h1 class="hder">Atakan Divan Bilgisayar Grafikleri Ödev</h1>
+    </header>
+
+
+    <script id="vertex-shader" type="x-shader/x-vertex">
+        attribute vec2 vPosition;
+        
+        uniform vec2 translation;
+        uniform float scale;
+        float scl = scale;
+        uniform float theta;
+        
+        
+        void main()
+        {
+
+            float s = sin( theta );
+            float c = cos( theta );
+
+            vec2 scaledPos = vPosition * scl;
+           
+            vec2 rotatedPos = vec2(-s * scaledPos.y + c * scaledPos.x ,
+                                    s * scaledPos.x + c * scaledPos.y
+            );
+             
+
+            gl_Position.x = rotatedPos.x + translation.x;
+            gl_Position.y = rotatedPos.y + translation.y;
+
+        
+            gl_Position.z = 0.0;
+            gl_Position.w = 1.0;
+        }
+    </script>
+
+
+
+
+
+    <script id="fragment-shader" type="x-shader/x-fragment">
+
+    precision mediump float;
+    uniform float red;
+    uniform float green;
+    uniform float blue;
+
+    
+    void main()
+    {
+        gl_FragColor = vec4(0.0 + red, 0.0 + green, 0.0 + blue, 1.0 );
+    }
+    </script>
+    
+
+
+<script type="text/javascript" src="webgl-utils.js"></script>
+<script type="text/javascript" src="initShaders.js"></script>
+<script type="text/javascript" src="MVnew.js"></script>
+<script type="text/javascript" src="18290015.js"></script>
+
+</head>
+
+<div id="ana">
+    <div class="cnvs">
+        <canvas id="gl-canvas" width="512" height="512"></canvas>
+    </div>
+</div>
+
+
+
+
+
+<div id="ana_div">
+
+    <div class="div">
+        <h3>Renklendirme</h3>
+            <select  id="Colors" size="4" >
+                <option value="0">Kırmızı Arttır (R)</option>
+                <option value="1">Yeşil Arttır (G)</option>
+                <option value="2">Mavi Arttır (B)</option>
+                <option value="3">Sıfırla (T)</option>
+            </select>
+    </div>
+
+   
+    <div class="div">
+        <h3>Döndürme</h3>
+        <div>
+            <select  id="Dondurme" size="2" >
+                <option value="0">Saga (E)</option>
+                <option value="1">Sola (Q)</option>
+                
+            </select>
+     </div>
+    </div>
+
+    
+
+    <div class="div" id="div_ote">
+        <h3>Öteleme</h3>
+            <div> 
+                <select  id="Oteleme" size="4" >
+                    <option value="0">X-ekseninda sağa (D)</option>
+                    <option value="1">X-ekseninda sola (A)</option>
+                    <option value="2">Y-ekseninda yukarı (W)</option>
+                    <option value="3">Y-ekseninda aşağı (S)</option>
+                    
+                </select>
+            </div>
+    </div>
+    
+    <div class="div">
+        <h3>Ölçeklendirme</h3>
+        <div>
+            <select  id="Scale" size="2" >
+                <option value="0">Büyült (+)</option>
+                <option value="1">Küçült (-)</option>
+                
+            </select>
+     </div>
+    </div>
+
+</div>
+
+
+</html>
